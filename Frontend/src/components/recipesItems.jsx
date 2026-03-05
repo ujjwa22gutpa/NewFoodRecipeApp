@@ -6,7 +6,7 @@ import { FaHeart } from "react-icons/fa6";
 
 
 export default function RecipeItems() {
-    const allRecipes = useLoaderData();
+    const allRecipes = useLoaderData(); // using useLoaderData hook to access the data loaded by the loader function defined in the router configuration, in this case, it will fetch all recipes data from the backend API and make it available to this component for rendering
     console.log(allRecipes)
     return(
         <>
