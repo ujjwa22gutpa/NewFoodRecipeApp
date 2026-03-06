@@ -20,6 +20,7 @@ app.get('/recipe',recipeRouter);// getting all the recipes
 app.post('/login',authRouter);
 app.post('/signup',authRouter);
 
+
 app.listen(PORT,(req,res)=>{
     console.log(`server is running on port ${PORT}`)
 })

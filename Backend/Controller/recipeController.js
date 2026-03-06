@@ -69,7 +69,6 @@ const Recipe = async (req, res) => {
 
 const editRecipe = async (req, res) => {
   try {
-    const { tittle, ingrediants, instructions, time, image } = req.body;
     const id = req.params.id;
     const recipe = await recipeModel.findById(id);
     if (!recipe) {

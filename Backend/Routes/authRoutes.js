@@ -3,7 +3,7 @@ const {signUpValidation, loginValidation} = require('../Middleware/authValidatio
 const {signUp , login} = require('../Controller/AuthController')
 
 
- route.post('/login',loginValidation,login);
+route.post('/login',loginValidation,login);
 route.post('/signup',signUpValidation,signUp);
 
 module.exports = route;
