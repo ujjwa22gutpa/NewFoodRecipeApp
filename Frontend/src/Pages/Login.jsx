@@ -47,6 +47,9 @@ export default function Login() {
         setTimeout(() => {
           navigate("/home");
         }, 1000);
+        setLocalStorage("jwtToken", data.jwtToken);
+        setLocalStorage("email", data.email);
+        setLocalStorage("name", data.name);
       } else if (!success) {
         handleError(message, "Email or password is not valid");
       }

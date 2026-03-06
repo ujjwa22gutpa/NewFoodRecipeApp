@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./Pages/Home";
 import MainNavigation from "./components/MainNavigation";
 import axios from "axios";
-import Login from "./Pages/login";
+import Login from "./Pages/Login";
 import SignUp from "./Pages/signUp";
 import "react-toastify/dist/ReactToastify.css";
 const getAllRecipes = async () => {

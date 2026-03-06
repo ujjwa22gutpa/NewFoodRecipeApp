@@ -19,6 +19,7 @@ app.delete('/:id',recipeRouter);// to delete the recipe
 app.get('/recipe',recipeRouter);// getting all the recipes
 app.post('/login',authRouter);
 app.post('/signup',authRouter);
+app.get('/user/:id',authRouter);
 
 
 app.listen(PORT,(req,res)=>{

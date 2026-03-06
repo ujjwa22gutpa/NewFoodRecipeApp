@@ -1,4 +1,4 @@
-const userModel = require("../Models/userModels");
+const userModel = require('../Models/userModels.js')
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -18,7 +18,8 @@ const signUp = async (req, res) => {
     res.status(200).json({
       message: "SignUp Successfully!!",
       success: true,
-    });
+      timestamp: usermodel.createdAt
+    }); 
   } catch (error) {
     res.status(500).json({
       message: "Internal Server Problem",
@@ -57,6 +58,8 @@ const login = async (req, res) => {
       jwtToken,
       email,
       name: user.name,
+      _id: user._id,
+      timestamp: user.createdAt
     });
   } catch (error) {
     res.status(500).json({
@@ -66,7 +69,25 @@ const login = async (req, res) => {
   }
 };
 
+
+  const currentUser = async(req,res)=>{
+    const id = req.params.id;
+    const user = await userModel.findById(id);
+    if(!user){
+      return res.status(403).json({
+        message:"User does not exist",
+        success:false
+      })
+    }
+    res.status(200).json({
+      message:"User found successfully",
+      success:true,
+      user
+    })
+}
+
 module.exports = {
   signUp,
   login,
+  currentUser
 };
