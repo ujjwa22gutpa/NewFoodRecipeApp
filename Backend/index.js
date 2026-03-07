@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/:id',recipeRouter); // for getting the recipe by id 
-app.post('/',recipeRouter);// for creating a new Recipe
+app.post('/addRecipe',recipeRouter);// for creating a new Recipe
 app.put('/:id',recipeRouter);//to edit the recipe
 app.delete('/:id',recipeRouter);// to delete the recipe
 app.get('/recipe',recipeRouter);// getting all the recipes

@@ -7,6 +7,7 @@ import axios from "axios";
 import Login from "./Pages/Login";
 import SignUp from "./Pages/signUp";
 import "react-toastify/dist/ReactToastify.css";
+import AddRecipe from "./components/AddRecipe";
 const getAllRecipes = async () => {
   try {
     const allRecipes = await axios.get("http://localhost:8000/recipe"); //axios can automatically parse the response into json data unlike the normal fetch method where we have to call the .json() method to parse the response, here we are making a GET request to the backend API endpoint to fetch all recipes data and storing it in the allRecipes variable
@@ -25,7 +26,9 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home />, loader: getAllRecipes },
       { path: "/login", element: <Login /> },
-      { path: "/signup", element: <SignUp /> }
+      { path: "/signup", element: <SignUp /> },
+      { path: "/addRecipe", element: <AddRecipe />},
+      {path:"/favourites", element:<Home />}
      // default route for the home page, it will load the Home component and also call the getAllRecipes function to fetch all recipes data before rendering the component
     ],
   },

@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { handleError, handleSuccess } from "../util/util";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import "./login.css";
+import { Link } from "react-router-dom";
+import "./signUp.css";
 export default function SignUp() {
   const navigate = useNavigate();
   const [user, setUser] = useState({
@@ -100,7 +101,12 @@ export default function SignUp() {
               />
             </label>
             <button type="submit">Sign Up</button>
+               <span>
+           
+            Already have an account ?<Link to="/login">Login</Link>
+          </span>
           </form>
+        
           <ToastContainer />
         </div>
       </div>

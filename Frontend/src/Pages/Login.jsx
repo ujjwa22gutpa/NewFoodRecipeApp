@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { handleError, handleSuccess } from "../util/util";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import "./login.css";
+import { Link } from "react-router-dom";
+import './login.css'; 
+
 export default function Login() {
   const navigate = useNavigate();
   const [user, setUser] = useState({
@@ -39,17 +41,19 @@ export default function Login() {
       console.log(data);
       const { message, success } = data;
       if (success) {
+        localStorage.setItem("jwtToken", data.jwtToken);
+        localStorage.setItem("email", data.email);
+        localStorage.setItem("name", data.name);
+        // Dispatch custom event to notify Navbar of login
+        window.dispatchEvent(new Event("userLoggedIn"));
         handleSuccess(message, "Login SuccessFully");
         setUser({
           email: "",
           password: "",
         });
         setTimeout(() => {
-          navigate("/home");
-        }, 1000);
-        setLocalStorage("jwtToken", data.jwtToken);
-        setLocalStorage("email", data.email);
-        setLocalStorage("name", data.name);
+          navigate("/");
+        }, );
       } else if (!success) {
         handleError(message, "Email or password is not valid");
       }
@@ -89,6 +93,9 @@ export default function Login() {
             </label>
             <button type="submit">Login</button>
           </form>
+          <span>
+            Don't have an account ?<Link to="/signup">Sign Up</Link>
+          </span>
           <ToastContainer />
         </div>
       </div>

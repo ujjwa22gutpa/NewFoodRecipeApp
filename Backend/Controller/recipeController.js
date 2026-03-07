@@ -1,5 +1,6 @@
 const recipeModel = require("../Models/recipeModel");
 
+
 const addRecipe = async (req, res) => {
   const { tittle, ingrediants, instructions, time, image } = req.body;
   if (!tittle || !ingrediants || !instructions || !time) {
@@ -8,7 +9,8 @@ const addRecipe = async (req, res) => {
       success: false,
     });
   }
-  let recipe = null;
+  try {
+    let recipe = null;
   if (image) {
     recipe = new recipeModel({
       tittle,
@@ -26,6 +28,13 @@ const addRecipe = async (req, res) => {
     success: true,
     recipe,
   });
+  } catch (error) {
+    res.status(500).json({
+      message: "Internal Server Problem",
+      success: false,
+    });
+  }
+  
 };
 
 const Recipes = async (req, res) => {

@@ -16,7 +16,7 @@ router.get("/recipe", Recipes); // getting all the recipes
 
 router.get("/:id", idValidation, Recipe); // for getting the recipe by id
 
-router.post("/", recipeValidation, addRecipe); // for creating a new Recipe
+router.post("/addRecipe",addRecipe); // for creating a new Recipe
 
 router.put("/:id",idValidation, editRecipe); //to edit the recipe
 
