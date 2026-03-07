@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require('cors');
+const path = require('path');
 const authRouter = require('./Routes/authRoutes.js');
 const recipeRouter = require("./Routes/recipeRouter.js")
 const bodyParser = require("body-parser");
@@ -11,6 +12,8 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 app.use(bodyParser.json());
 app.use(cors());
+
+app.use(express.static(path.join(__dirname, '../public'))); // serve static files from the "public" directory
 
 app.get('/:id',recipeRouter); // for getting the recipe by id 
 app.post('/addRecipe',recipeRouter);// for creating a new Recipe

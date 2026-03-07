@@ -1,49 +1,46 @@
 const recipeModel = require("../Models/recipeModel");
-const multer = require("multer");
+const path = require('path');
 
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './public/images'); // specify the destination folder for uploaded images
-  },
-  filename: function (req, file, cb) {
-    const fileName = Date.now() + '-' + file.fieldname; // c
-    cb(null, file.fieldname + '-' + fileName)
-  }
-})
-
-const upload = multer({ storage: storage })
 const addRecipe = async (req, res) => {
-  const { tittle, ingrediants, instructions, time, image } = req.body;
+  const { tittle, ingrediants, instructions, time } = req.body;
+  
   if (!tittle || !ingrediants || !instructions || !time) {
     return res.status(400).json({
       message: "All fields are required",
       success: false,
     });
   }
+
+  if (!req.file) {
+    return res.status(400).json({
+      message: "Image is required",
+      success: false,
+    });
+  }
+
   try {
-    let recipe = null;
-  if (image) {
-    recipe = new recipeModel({
+    const imageFilename = req.file.filename;
+    
+    const recipe = new recipeModel({
       tittle,
       ingrediants,
       instructions,
       time,
-      image,
+      image: imageFilename,
     });
-  } else {
-    recipe = new recipeModel({ tittle, ingrediants, instructions, time });
-  }
-  await recipe.save();
-  res.status(200).json({
-    message: "Recipe added successfully",
-    success: true,
-    recipe,
-  });
+    
+    await recipe.save();
+    res.status(200).json({
+      message: "Recipe added successfully",
+      success: true,
+      recipe,
+    });
   } catch (error) {
+    console.error('Error adding recipe:', error);
     res.status(500).json({
       message: "Internal Server Problem",
       success: false,
+      error: error.message,
     });
   }
   
@@ -129,4 +126,4 @@ const deleteRecipe = async (req, res) => {
   });
 };
 
-module.exports = { Recipes, Recipe, editRecipe, addRecipe, deleteRecipe, upload };
+module.exports = { Recipes, Recipe, editRecipe, addRecipe, deleteRecipe};

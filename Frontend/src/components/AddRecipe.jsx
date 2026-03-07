@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 export default function AddRecipe(event) {
- const navigate = useNavigate();
+  const navigate = useNavigate();
   const [item, setItem] = useState({
     tittle: "",
     ingrediants: "",
@@ -15,43 +15,46 @@ export default function AddRecipe(event) {
 
   function handleChange(event) {
     const { name, value } = event.target;
-    setItem((prevItem) => ({
-      ...prevItem,
-      [name]: value,
-    }));
+    if (name === "image") {
+      setItem((prevItem) => ({ ...prevItem, [name]: event.target.files[0] }));
+    } else {
+      setItem((prevItem) => ({
+        ...prevItem,
+        [name]: value,
+      }));
+    }
   }
 
-
- async function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    const { tittle, ingrediants, instructions, time, image } = item;
+    const { tittle, ingrediants, instructions, time } = item;
     if (!tittle || !ingrediants || !instructions || !time) {
-      return handleError("Please fill the all the details");
+      return handleError("Please fill all the details");
     }
+    if (!item.image) {
+      return handleError("Please select an image file");
+    }
+
+    const formData = new FormData(); // creating a new FormData object to hold the form data, including the image file, which allows us to send multipart/form-data requests to the backend API for adding a new recipe with an image
+    formData.append("tittle", tittle.trim());
+    formData.append("ingrediants", ingrediants.trim());
+    formData.append("instructions", instructions.trim());
+    formData.append("time", time.trim());
+    formData.append("image", item.image);
     try {
       const res = await fetch("http://localhost:8000/addRecipe", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          tittle: tittle.trim(),
-          ingrediants: ingrediants.trim(),
-          instructions: instructions.trim(),
-          time: time.trim(),
-          image: image.trim(),
-        }),
+        body: formData,
       });
-      if(res.ok){
+      if (res.ok) {
         handleSuccess("Recipe Added Successfully");
       }
       const recipe = await res.json();
-       navigate('/')
-        console.log(recipe);
+      navigate("/");
+      console.log(recipe);
     } catch (error) {
-        handleError("Error",error)
+      handleError("Error", error);
     }
-   
   }
   return (
     <>
@@ -109,11 +112,10 @@ export default function AddRecipe(event) {
                 type="file"
                 placeholder="Share the image"
                 name="image"
-                value={item.image}
                 onChange={handleChange}
               />
             </label>
-            <button onClick={handleSubmit}>Add Recipe</button>
+            <button type="submit">Add Recipe</button>
           </form>
         </div>
       </div>

@@ -1,16 +1,18 @@
 const router = require("express").Router();
+const multer = require("multer");
 const {
   Recipes,
   Recipe,
   addRecipe,
   editRecipe,
   deleteRecipe,
-  upload,
 } = require("../Controller/recipeController");
 const {
   recipeValidation,
   idValidation,
 } = require("../Middleware/recipeValidations");
+
+const { upload } = require("../Middleware/upload");
 
 router.get("/recipe", Recipes); // getting all the recipes
 
