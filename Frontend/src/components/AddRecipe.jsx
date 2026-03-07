@@ -11,6 +11,7 @@ export default function AddRecipe(event) {
     instructions: "",
     time: "",
     image: "",
+    user_id: localStorage.getItem("user_id")
   });
 
   function handleChange(event) {
@@ -27,7 +28,8 @@ export default function AddRecipe(event) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const { tittle, ingrediants, instructions, time } = item;
+    const { tittle, ingrediants, instructions, time} = item;
+    console.log(item.user_id);
     if (!tittle || !ingrediants || !instructions || !time) {
       return handleError("Please fill all the details");
     }
@@ -41,6 +43,7 @@ export default function AddRecipe(event) {
     formData.append("instructions", instructions.trim());
     formData.append("time", time.trim());
     formData.append("image", item.image);
+    formData.append("user_id", item.user_id);
     try {
       const res = await fetch("http://localhost:8000/addRecipe", {
         method: "POST",

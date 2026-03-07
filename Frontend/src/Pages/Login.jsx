@@ -44,6 +44,7 @@ export default function Login() {
         localStorage.setItem("jwtToken", data.jwtToken);
         localStorage.setItem("email", data.email);
         localStorage.setItem("name", data.name);
+        localStorage.setItem("user_id",data._id);
         // Dispatch custom event to notify Navbar of login
         window.dispatchEvent(new Event("userLoggedIn"));
         handleSuccess(message, "Login SuccessFully");

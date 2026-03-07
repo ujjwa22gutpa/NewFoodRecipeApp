@@ -2,7 +2,8 @@ const recipeModel = require("../Models/recipeModel");
 const path = require('path');
 
 const addRecipe = async (req, res) => {
-  const { tittle, ingrediants, instructions, time } = req.body;
+  const { tittle, ingrediants, instructions, time, user_id } = req.body;
+  console.log(req.user_id);
   
   if (!tittle || !ingrediants || !instructions || !time) {
     return res.status(400).json({
@@ -27,6 +28,7 @@ const addRecipe = async (req, res) => {
       instructions,
       time,
       image: imageFilename,
+      user_id
     });
     
     await recipe.save();
