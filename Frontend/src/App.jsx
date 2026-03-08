@@ -8,6 +8,8 @@ import Login from "./Pages/Login";
 import SignUp from "./Pages/SignUp";
 import "react-toastify/dist/ReactToastify.css";
 import AddRecipe from "./components/AddRecipe";
+import MyRecipe from "./components/My-Recipe";
+import EditFav from "./Pages/EditFav";
 
 const getAllRecipes = async () => {
   try {
@@ -37,7 +39,8 @@ const router = createBrowserRouter([
       { path: "/signup", element: <SignUp /> },
       { path: "/addRecipe", element:<AddRecipe />},
       {path:"/favourites", element:<Home />},
-      {path:"/my-recipes", element:<Home />, loader:getMyRecipe}
+      {path:"/my-recipes", element:<MyRecipe />, loader:getMyRecipe},
+      {path:"/edit-favourites/:id", element:<EditFav />}
      // default route for the home page, it will load the Home component and also call the getAllRecipes function to fetch all recipes data before rendering the component
     ],
   },

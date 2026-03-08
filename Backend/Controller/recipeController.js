@@ -90,6 +90,12 @@ const Recipe = async (req, res) => {
 const editRecipe = async (req, res) => {
   try {
     const id = req.params.id;
+     if(!req.file){
+      return res.status(400).json({
+        message:"Didn't Upload the photo"
+      })
+    }
+
     const recipe = await recipeModel.findById(id);
     if (!recipe) {
       return res.status(404).json({
@@ -97,7 +103,8 @@ const editRecipe = async (req, res) => {
         success: false,
       });
     }
-   await recipeModel.findByIdAndUpdate(id, req.body, { new: true });
+   const filename = req.file.filename;
+   await recipeModel.findByIdAndUpdate(id, { ...req.body, image: filename }, { new: true });
     res.status(200).json({
       message: "Recipe Updated Successfully!!",
       success: true,

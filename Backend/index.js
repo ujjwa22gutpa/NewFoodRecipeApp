@@ -13,12 +13,12 @@ const PORT = process.env.PORT || 8000;
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use(express.static(path.join(__dirname, '../public'))); // serve static files from the "public" directory
+app.use(express.static(path.join(__dirname, 'public'))); // serve static files from the "public" directory
 
-app.get('/:id',recipeRouter); // for getting the recipe by id 
-app.post('/addRecipe',recipeRouter);// for creating a new Recipe
-app.put('/:id',recipeRouter);//to edit the recipe
-app.delete('/:id',recipeRouter);// to delete the recipe
+app.get('/recipe/:id',recipeRouter); // for getting the recipe by id 
+app.post('/recipe',recipeRouter);// for creating a new Recipe
+app.put('/recipe/:id',recipeRouter);//to edit the recipe
+app.delete('/recipe/:id',recipeRouter);// to delete the recipe
 app.get('/recipe',recipeRouter);// getting all the recipes
 app.post('/login',authRouter);
 app.post('/signup',authRouter);

@@ -3,7 +3,7 @@ const multer = require('multer');
 const path = require('path');// for handling file paths
 const fs = require('fs');
 
-const uploadDir = path.join(__dirname, '../../public/images');
+const uploadDir = path.join(__dirname, '../public/images');
 
 // Create directory if it doesn't exist
 if (!fs.existsSync(uploadDir)) {
