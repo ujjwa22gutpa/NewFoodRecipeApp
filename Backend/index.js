@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'public'))); // serve static files from the "public" directory
 
 app.get('/recipe/:id',recipeRouter); // for getting the recipe by id 
-app.post('/recipe',recipeRouter);// for creating a new Recipe
+app.post('/recipe/addRecipe',recipeRouter);// for creating a new Recipe
 app.put('/recipe/:id',recipeRouter);//to edit the recipe
 app.delete('/recipe/:id',recipeRouter);// to delete the recipe
 app.get('/recipe',recipeRouter);// getting all the recipes

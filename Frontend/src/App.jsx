@@ -10,6 +10,8 @@ import "react-toastify/dist/ReactToastify.css";
 import AddRecipe from "./components/AddRecipe";
 import MyRecipe from "./components/My-Recipe";
 import EditFav from "./Pages/EditFav";
+import DelRecipe from "./components/DelRecipe";
+import FavouriteRecipe from './components/FavourtieRecipe.jsx';
 
 const getAllRecipes = async () => {
   try {
@@ -24,7 +26,7 @@ const getAllRecipes = async () => {
 const getMyRecipe = async ()=>{
   const id = localStorage.getItem("user_id");
   let allRecipe = await getAllRecipes();
-  return allRecipe.filter(item => item.user_id === id);
+  return allRecipe.filter(item => item.user_id === id || item.user_id?._id === id);
 }
 
 
@@ -38,9 +40,10 @@ const router = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/signup", element: <SignUp /> },
       { path: "/addRecipe", element:<AddRecipe />},
-      {path:"/favourites", element:<Home />},
+      {path:"/favourites/:id", element:<FavouriteRecipe />, loader:getMyRecipe},
       {path:"/my-recipes", element:<MyRecipe />, loader:getMyRecipe},
-      {path:"/edit-favourites/:id", element:<EditFav />}
+      {path:"/editRecipe/:id", element:<EditFav />},
+      {path:'/deleteRecipe/:id', element:<DelRecipe />}
      // default route for the home page, it will load the Home component and also call the getAllRecipes function to fetch all recipes data before rendering the component
     ],
   },

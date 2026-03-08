@@ -15,7 +15,6 @@ export default function EditFav(event) {
     image: "",
     user_id: localStorage.getItem("user_id")
   });
-
   useEffect(() => {
     const getRecipe = async () => {
       try {
@@ -56,9 +55,6 @@ export default function EditFav(event) {
     const { tittle, ingrediants, instructions, time} = item;
     if (!tittle || !ingrediants || !instructions || !time) {
       return handleError("Please fill all the details");
-    }
-    if (!item.image) {
-      return handleError("Please select an image file");
     }
 
     const formData = new FormData(); // creating a new FormData object to hold the form data, including the image file, which allows us to send multipart/form-data requests to the backend API for adding a new recipe with an image

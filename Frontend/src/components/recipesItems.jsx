@@ -22,11 +22,11 @@ export default function RecipeItems() {
                                 <div className="title">{item.tittle}</div>
                                 <div className="icons">
                                      <div className="timer"><LuTimer />{item.time} </div>
-                                  {  (!path)?  <FaHeart />
+                                  {  (!path)? <Link to={`/favourites/${item._id}`}> <FaHeart /> </Link>
                                       :
                                         <div className="action">
-                                          <Link to={`/edit-favourites/${item._id}`}> <FaEdit /> </Link>
-                                            <MdDelete className="deleteIcon" />
+                                          <Link to={`/editRecipe/${item._id}`}> <FaEdit /> </Link>
+                                           <Link to={`/deleteRecipe/${item._id}`}> <MdDelete className="deleteIcon" /> </Link>
                                         </div>
                                   }       
                                 </div>

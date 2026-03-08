@@ -135,4 +135,47 @@ const deleteRecipe = async (req, res) => {
   });
 };
 
-module.exports = { Recipes, Recipe, editRecipe, addRecipe, deleteRecipe};
+
+
+// Backend/Controller/AuthController.js mein add karo
+const toggleFavorite = async (req, res) => {
+  try {
+    const userId = req.body.user_id; // frontend se aayega
+    const recipeId = req.params.id;   // URL se aayega
+    
+    const user = await UserModel.findById(userId);
+    if (!user) {
+      return res.status(404).json({
+        message: "User nahi mila",
+        success: false
+      });
+    }
+
+    // Check karo ki already favorite hai ya nahi
+    const isFavorited = user.favorites.includes(recipeId);
+
+    if (isFavorited) {
+      // Agar favorite hai to hatao
+      user.favorites = user.favorites.filter(fav => fav.toString() !== recipeId);
+    } else {
+      // Agar favorite nahi hai to add karo
+      user.favorites.push(recipeId);
+    }
+
+    await user.save();
+    res.status(200).json({
+      message: isFavorited ? "Removed from favorites" : "Added to favorites",
+      success: true,
+      isFavorited: !isFavorited
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Kuch error ho gaya",
+      success: false
+    });
+  }
+};
+
+
+
+module.exports = { Recipes, Recipe, editRecipe, addRecipe, deleteRecipe, toggleFavorite};

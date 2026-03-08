@@ -45,7 +45,7 @@ export default function AddRecipe(event) {
     formData.append("image", item.image);
     formData.append("user_id", item.user_id);
     try {
-      const res = await fetch("http://localhost:8000/addRecipe", {
+      const res = await fetch("http://localhost:8000/recipe/addRecipe", {
         method: "POST",
         body: formData,
       });
